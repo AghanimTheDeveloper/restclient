@@ -7,6 +7,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -15,7 +16,8 @@ import java.util.Arrays;
 import java.util.List;
 
 
-@RestController
+@Controller
+@RequestMapping("/")
 public class RestClientController {
 
     @Autowired
@@ -48,13 +50,13 @@ public class RestClientController {
         return "redirect:/users";
     }
 
-    @PutMapping(value = "/edit/{id}")
+    @PostMapping(value = "/edit/{id}")
     public String updateUser(@PathVariable("id") long id, @ModelAttribute("user") User user){
         restService.updateUser(user);
         return "redirect:/users";
     }
 
-    @DeleteMapping(value = "delete/{id}")
+    @GetMapping(value = "delete/{id}")
     public String deleteUser(@PathVariable("id") long id){
         restService.deleteUser(id);
         return "redirect:/users";
